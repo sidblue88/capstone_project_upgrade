@@ -1,0 +1,37 @@
+---
+- name: Install and configure Nginx on AWS and Azure
+  hosts: all
+  become: yes  # Run tasks with sudo privileges
+  tasks:
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Ensure Nginx is running
+      command: systemctl status nginx
+      register: nginx_status
+      changed_when: false
+
+    - name: Debug Nginx status
+      debug:
+        var: nginx_status.stdout
+
+    - name: Verify Nginx is accessible via HTTP
+      uri:
+        url: "http://34.239.120.221:80"
+        return_content: yes
+      register: nginx_response
+      until: "'Welcome to Nginx' in nginx_response.content"
+      retries: 5
+      delay: 10
+
+    - name: Debug Nginx HTTP response
+      debug:
+        var: nginx_response.content
