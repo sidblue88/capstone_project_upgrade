@@ -29,7 +29,7 @@ resource "aws_security_group" "allow_ssh_http" {
   }
 }
 
-resource "aws_key_pair" "ec2_key" {
+resource "aws_key_pair" "m-key" {
   key_name   = var.key_name
   public_key = file(var.public_key_path)
 }
