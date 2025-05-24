@@ -7,14 +7,14 @@ module "vpc" {
   vpc_cidr            = "10.0.0.0/16"
   public_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24"]
   private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24"]
-  availability_zones  = ["us-west-2a", "us-west-2b"]
+  availability_zones  = ["us-east-1a", "us-east-1b"]
 }
 
 module "security" {
   source          = "./modules/security"
   vpc_id          = module.vpc.vpc_id
-  key_name        = "ec2-key-pair"
-  public_key_path = "~/.aws/config"
+  key_name        = "m-key"
+  public_key_path = "~/my-key.pub"
 }
 
 module "ec2" {
