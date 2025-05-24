@@ -1,9 +1,9 @@
 provider "azurerm" {
   features {}
-  subscription_id = ""
-  client_id       = ""
-  client_secret   = ""
-  tenant_id       = ""
+  subscription_id = ".........1-b4de-57259035b998"
+  client_id       = "......m-sp"
+  client_secret   = "..............ItBaCGK-._YTcDZ"
+  tenant_id       = "................7b3abf9ccc"
 }
 
 # Create a Resource Group
@@ -14,8 +14,8 @@ resource "azurerm_resource_group" "rg" {
 
 # Create a Virtual Network
 resource "azurerm_virtual_network" "vnet" {
-  name                = "app-vnet"
-  address_space       = ["10.0.0.0/16"]
+  name                = "app-vm-vnet"
+  address_space       = ["10.0.0.0/"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
@@ -98,7 +98,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = file("C:/Users/I320413/.ssh/id_rsa.pub")  # Replace with the path to your public key
+    public_key = file("~/id_rsa.pub")  # Replace with the path to your public key
   }
 
   os_disk {
@@ -109,7 +109,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    sku       = "24.04-LTS"
     version   = "latest"
   }
 }
