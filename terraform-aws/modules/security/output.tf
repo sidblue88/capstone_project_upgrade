@@ -3,5 +3,5 @@ output "security_group_id" {
 }
 
 output "key_name" {
-  value = aws_key_pair.ec2_key.key_name
+  value = aws_key_pair.m-key.key_name
 }
